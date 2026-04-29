@@ -1,0 +1,11 @@
+{
+  "_voice": "朋友 + 逻辑 + 克制 + 偶尔自嘲",
+  "_banned_words_check": "passed (no 极致/超快/极速/亲/哦/我们/操作成功/暂无数据/立即体验)",
+  "hero_title":   "把截图修得像样,只要 1 秒",
+  "hero_sub":     "拖图进来,SnapMatte 自动加留白与水印。配色跟着你的截图走。",
+  "cta_primary":  "免费截一张试试",
+  "cta_secondary":"看 30 秒 demo",
+  "empty_state":  "还没截过图。把任意 PNG 拖进窗口看看",
+  "error_state":  "保存没成功,可能磁盘没空间了。再试一次?",
+  "success_state":"已保存到 ~/Downloads,顺手也复制到剪贴板了"
+}

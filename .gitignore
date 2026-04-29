@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Misc
+.env
+.env.local
+
+# Local Claude Code state (created by ralph-loop plugin during runs)
+.claude/ralph-loop.local.md
+
+# Example 01 dynamically scaffolds a CLI here at run time
+examples/01-todo-cli/scaffold/

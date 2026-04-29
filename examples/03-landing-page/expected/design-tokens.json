@@ -1,0 +1,39 @@
+{
+  "color": {
+    "bg":         { "value": "#0a0a0a", "type": "color", "comment": "页面底色" },
+    "fg":         { "value": "#fafafa", "type": "color", "comment": "正文" },
+    "fg-muted":   { "value": "#a3a3a3", "type": "color", "comment": "次要文本" },
+    "accent":     { "value": "#4ade80", "type": "color", "comment": "主 CTA 与链接" },
+    "border":     { "value": "#262626", "type": "color", "comment": "卡片边" },
+    "success":    { "value": "#22c55e", "type": "color" },
+    "warning":    { "value": "#facc15", "type": "color" },
+    "error":      { "value": "#f87171", "type": "color" }
+  },
+  "spacing": {
+    "0":  { "value": "0px" },
+    "1":  { "value": "4px" },
+    "2":  { "value": "8px" },
+    "3":  { "value": "12px" },
+    "4":  { "value": "16px" },
+    "6":  { "value": "24px" },
+    "8":  { "value": "32px" },
+    "12": { "value": "48px" },
+    "16": { "value": "64px" }
+  },
+  "radius": {
+    "none": { "value": "0" },
+    "sm":   { "value": "4px" },
+    "md":   { "value": "8px" },
+    "lg":   { "value": "16px" }
+  },
+  "shadow": {
+    "sm": { "value": "0 1px 2px rgba(0,0,0,.05)" },
+    "md": { "value": "0 4px 12px rgba(0,0,0,.1)" },
+    "lg": { "value": "0 12px 32px rgba(0,0,0,.15)" }
+  },
+  "font": {
+    "heading":  { "value": "Geist, Helvetica, Arial, 'Noto Sans SC', sans-serif" },
+    "body":     { "value": "Geist, Helvetica, Arial, 'Noto Sans SC', sans-serif" },
+    "code":     { "value": "'Geist Mono', SFMono-Regular, Menlo, Consolas, monospace" }
+  }
+}

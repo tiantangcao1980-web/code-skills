@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate skills + CLI schema
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Make scripts executable
+        run: |
+          chmod +x bin/code-skills
+          chmod +x scripts/*.py
+          chmod +x ralph-loop/scripts/*.sh
+          chmod +x code-simplifier/scripts/*.sh
+          chmod +x ralph-loop/plugin/scripts/*.sh ralph-loop/plugin/hooks/*.sh
+
+      - name: Run skill structure validation
+        run: bin/code-skills validate
+
+      - name: Run validate --json (verify JSON output is valid)
+        run: |
+          bin/code-skills validate --json | python3 -c "
+          import json, sys
+          d = json.load(sys.stdin)
+          assert d.get('ok') is True, f'validate --json must return ok=true, got: {d}'
+          assert d['data']['passed'] == d['data']['total'], 'all skills must pass'
+          print(f\"OK: {d['data']['passed']}/{d['data']['total']} skills validated\")
+          "
+
+      - name: Run describe --json (verify opencli schema shape)
+        run: |
+          bin/code-skills describe --json | python3 -c "
+          import json, sys
+          s = json.load(sys.stdin)
+          for required in ['opencli', 'name', 'version', 'commands', 'common_flags', 'exit_codes', 'error_codes', 'skills']:
+              assert required in s, f'missing top-level field: {required}'
+          assert s['opencli'] == '0.1', f'opencli version mismatch: {s[\"opencli\"]}'
+          assert len(s['commands']) >= 9, f'too few commands: {len(s[\"commands\"])}'
+          for cmd in s['commands']:
+              for f in ('name', 'summary'):
+                  assert f in cmd, f'command missing {f}: {cmd}'
+          print(f\"OK: schema has {len(s['commands'])} commands and {len(s['skills'])} skills\")
+          "
+
+      - name: Run list --json
+        run: bin/code-skills list --json
+
+      - name: Run doctor (informational, never fails)
+        run: bin/code-skills doctor || true
+
+      - name: Smoke test cli-init
+        run: |
+          bin/code-skills cli-init /tmp/scaffold-test
+          /tmp/scaffold-test/bin/scaffold-test help
+          /tmp/scaffold-test/bin/scaffold-test describe --json | python3 -c "
+          import json, sys
+          d = json.load(sys.stdin)
+          assert d['name'] == 'scaffold-test', d
+          assert d['opencli'] == '0.1', d
+          print('OK: scaffolded CLI emits valid opencli schema')
+          "
+
+      - name: Install pytest (for examples)
+        run: pip install pytest
+
+      - name: Run all examples self-tests
+        run: |
+          chmod +x examples/run-all.sh examples/*/run.sh
+          examples/run-all.sh
