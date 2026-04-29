@@ -24,3 +24,6 @@ Thumbs.db
 
 # Example 01 dynamically scaffolds a CLI here at run time
 examples/01-todo-cli/scaffold/
+
+# bin/code-skills export <tool> outputs go here
+dist/

@@ -11,6 +11,9 @@ description: |
 
 > 灵感:[remotion-dev/remotion](https://github.com/remotion-dev/remotion) —— Make videos programmatically with React。
 > 核心心法:**别录屏剪 5 分钟,用代码生成 30 秒**。可重放、可参数化、可 CI 化。
+>
+> 💡 **本 skill 不只是做 demo 视频**,还可以**作为底层能力被其他 skill 调用** —— 详见
+> [`references/embed-as-callable.md`](references/embed-as-callable.md)(产品交互动画 / 营销素材 / 教学视频 / Slack GIF / 演讲过场)。
 
 ## 三档选型
 
@@ -117,6 +120,29 @@ docs/demo/
 ```
 
 `docs/demo/README.md` 写明:工具、时长、数据源、复现命令。
+
+---
+
+## 作为底层能力被调用 ⭐
+
+Remotion 不只是"做 demo 视频" —— 它是 **"用 React 生成视觉时间线"** 的能力,可以被多个上层场景调用。
+
+### 4 种调用模式
+
+| 模式 | 谁调用 | 输出 | 何时用 |
+|------|-------|------|--------|
+| **A · 生成静态 mp4/gif** | 用户 / `auto-flow ⑨ 交付幕` | mp4 / gif 文件 | 产品 demo / README hero / ProductHunt |
+| **B · 嵌入 React 组件** | 前端 skill / `frontend-patterns` | `<Player>` 组件 | 产品内交互动画(loading / 过场 / 引导) |
+| **C · 数据驱动批量生成** | 营销 / 销售 / 财务 skill | N 个个性化视频 | 用户级 EDM 视频 / 自动周报视频 |
+| **D · 教学动效** | 文档 skill / `internal-comms` | 解释性短动画 | 复杂概念可视化(算法演示 / 流程图动画) |
+
+详见 [`references/embed-as-callable.md`](references/embed-as-callable.md)。
+
+### 与 frontend-patterns 的协作
+
+- `frontend-patterns` 处理一般动画(CSS animation / Framer Motion)
+- 本 skill 处理**可参数化、可批量生成、可 CI 出片**的场景
+- **决策树**:静态 CSS 能搞定 → frontend-patterns;需要"生成 N 个变体 / 服务端渲染 / 数据驱动" → 本 skill
 
 ---
 

@@ -189,7 +189,26 @@ bin/code-skills demo init my-demo
 
 # 8. LLM 浏览器自动化任务
 bin/code-skills browser run "find a repo and star it"
+
+# 9. 导出到其他 agent 工具(让本仓库 skill 在 Codex / Cursor / opencode / openclaw / Hermes / Trae 里也能用)
+bin/code-skills export codex      # → dist/codex/AGENTS.md + skills/
+bin/code-skills export cursor     # → dist/cursor/.cursor/rules/*.mdc
+bin/code-skills export opencode   # → dist/opencode/.opencode/skills/*
+bin/code-skills export generic    # → dist/generic/*.md(适配任意 markdown 工具)
 ```
+
+## 跨工具适配
+
+本仓库的 source of truth 是各 skill 的 SKILL.md。通过 `export` 命令转换给其他工具:
+
+| 目标工具 | export 产物 | 部署位置 |
+|---------|------------|---------|
+| **OpenAI Codex CLI** | `AGENTS.md` + `skills/<name>.md` | 项目根 |
+| **Cursor IDE** | `.cursor/rules/<name>.mdc` | 项目根 |
+| **opencode-ai/opencode** | `.opencode/skills/<name>.md` + `skills.json` | 项目根 |
+| **openclaw** / **Hermes Agent** / **Trae** / **其他** | `<name>.md`(纯 markdown,通用 frontmatter) | 各工具按文档导入 |
+
+详细使用见 `bin/code-skills export --help`。
 
 ## 仓库结构
 

@@ -65,6 +65,9 @@ case "$CMD" in
   vendor|v)
     exec python3 "$ROOT/scripts/vendor.py" "$@"
     ;;
+  export|e)
+    exec python3 "$ROOT/scripts/export.py" "$@"
+    ;;
   help|-h|--help|"")
     cat <<'EOF'
 code-skills CLI · 综合开发技能套件 (opencli-aligned)
@@ -97,6 +100,7 @@ COMMANDS:
     uninstall <plugin>    卸载
     diff                  对比 vendor vs 上游 Cowork cache
     sync [--dry-run]      从上游同步更新
+  export <tool> [<dir>]  导出 skill 到其他工具(codex/cursor/opencode/generic)
   help                  显示本帮助
 
 COMMON FLAGS (every subcommand):
