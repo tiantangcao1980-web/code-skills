@@ -1,9 +1,14 @@
 # code-skills · 综合开发与设计技能套件
 
-> **15 个** Claude Code Skill(含 1 个**端到端自动驱动器** `auto-flow` + 9 幕全流程覆盖)+ 2 个嵌入式 Plugin + 一套对齐 opencli/CLI-Anything 的 CLI + 13 份外部 / Cowork / Claude Code 集成档案。
-> 一句话目标:**用户提需求 → 自动跑完 9 幕到交付**,只在 6 个预设节点打扰用户。
+> **15 个** Claude Code Skill(含 1 个**端到端自动驱动器** `auto-flow` + 9 幕全流程覆盖)
+> **+ 2 个嵌入式 Plugin**(ralph-loop / code-simplifier · Anthropic 官方 verbatim)
+> **+ 19 个 vendored Cowork 领域插件 / 67 个 skill**(legal / finance / pm / data / marketing / sales / ...,可一键激活)
+> **+ 一套对齐 opencli/CLI-Anything 的 CLI**(13 个命令)
+> **+ 13 份外部集成档案**
+>
+> **一句话目标**:**用户提需求 → 自动跑完 9 幕到交付**,只在 6 个预设节点打扰用户。
 
-[![CI](https://github.com/<org>/code-skills/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
+[![CI](https://github.com/tiantangcao1980-web/code-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/tiantangcao1980-web/code-skills/actions/workflows/ci.yml)
 
 ## 15 个 Skill(覆盖 9 幕全流程 + 工具)
 
@@ -51,6 +56,37 @@
 
 verbatim 嵌入,未修改源文件。完整 attribution 见仓库根 `NOTICE`。
 
+## 🆕 19 个 vendored Cowork 领域插件(67 个 skill 可立即激活)
+
+> 把 Anthropic Cowork(Claude Desktop)的领域专家插件 **真实 vendor 进仓库** —— 无需装 Cowork 本身,git clone 即可用。
+
+| Plugin | Skills | License | 域 |
+|--------|--------|---------|---|
+| `legal` | 6 | Apache-2.0 (Anthropic) | 合同审查 / NDA / 风险评估 / GDPR/CCPA / 法律邮件 |
+| `finance` | 6 | Apache-2.0 (Anthropic) | 三表 / 凭证 / 调节 / 方差 / 月结 / SOX 审计 |
+| `product-management` | 6 | Apache-2.0 (Anthropic) | feature-spec / roadmap / metrics / user-research-synthesis |
+| `data` | 7 | Apache-2.0 (Anthropic) | SQL / 统计 / 可视化 / 仪表盘 / 数据探查 |
+| `marketing` | 5 | Apache-2.0 (Anthropic) | brand-voice / campaign / 内容 / 竞品 / 性能分析 |
+| `customer-support` | 5 | Apache-2.0 (Anthropic) | 工单分诊 / 升级 / 知识库 / 响应起草 |
+| `sales` | 6 | Apache-2.0 (Anthropic) | 客户研究 / 通话准备 / 竞争情报 / 外联 |
+| `enterprise-search` | 3 | Apache-2.0 (Anthropic) | 知识合成 / 搜索策略 / 来源管理 |
+| `productivity` | 2 | Apache-2.0 (Anthropic) | 任务管理 / 记忆管理 |
+| `bio-research` | 5 | Apache-2.0 (Anthropic) | 生物信息(scvi-tools / 单细胞 RNA / Nextflow) |
+| `cowork-plugin-management` | 2 | Apache-2.0 (Anthropic) | 元 — 创建 / 定制 Cowork plugin |
+| `apollo` | 3 | MIT (Apollo.io) | Apollo.io 销售工作流 |
+| `brand-voice` | 3 | MIT (Tribe AI) | 品牌语气发现 / 强制 / 指南生成 |
+| `common-room` | 6 | Apache-2.0 (Common Room) | GTM Copilot |
+| `slack-by-salesforce` | 2 | MIT (Salesforce) | Slack 集成 |
+| 4 个 placeholder | - | (no LICENSE) | design / engineering / human-resources / operations(法律保守不分发) |
+
+**一键激活**:
+```bash
+bin/code-skills vendor install legal      # 6 个法律 skill 进 ~/.claude/plugins/
+bin/code-skills vendor install --all-vendored   # 一次装全 15 个完整 vendor
+```
+
+**升级反馈流程**:vendor 改 → PR 上游 → `vendor sync` 拉回。完整 attribution 见 [`vendor/cowork/NOTICE`](vendor/cowork/NOTICE)。
+
 ## CLI 命令树(opencli-aligned)
 
 ```
@@ -76,6 +112,13 @@ code-skills
 │   ├── version
 │   └── doctor
 ├── cli-init <name> [--lang python] [--force]       Scaffold opencli-aligned CLI
+├── vendor                                          管理 19 个 Cowork 领域插件
+│   ├── list [--json]                               19 plugin / 67 skill 清单
+│   ├── status [<plugin>] [--json]                  激活状态
+│   ├── install <plugin|--all-vendored> [--copy]    装到 ~/.claude/plugins/code-skills-vendor/
+│   ├── uninstall <plugin>
+│   ├── diff [--json]                               对比 vendor vs 上游 Cowork cache
+│   └── sync [--dry-run] [--json]                   从上游同步更新
 └── help [<command>]
 ```
 
@@ -161,11 +204,20 @@ code-skills/
 │   ├── demo.py / browser.py / cli_init.py
 ├── ralph-loop/                            # ⭐ skill + 嵌入 Anthropic plugin
 ├── code-simplifier/                       # ⭐ skill + 嵌入 Anthropic plugin
-├── design-dev-flow/                       # 7 幕编排
+├── design-dev-flow/                       # 9 幕蓝图
+├── auto-flow/                             # ⭐ 9 幕驱动器
+├── user-research/ requirement-analysis/   # 上游(① ② 幕)
+├── product-spec/                          # 上游(③ 幕)
 ├── cli-design/ claude-code-resources/
 ├── browser-automation/ programmatic-video/
 ├── copywriting-design/ design-templates/
-├── integrations/                          # 11 份外部项目集成档案
+├── qa-strategy/ file-curation/            # 测试 + 工具
+├── vendor/                                # ⭐ Cowork 19 plugin / 67 skill verbatim
+│   └── cowork/
+│       ├── NOTICE / README.md / VERSIONS.lock
+│       ├── legal/ finance/ data/ ...      # 15 个完整 vendored
+│       └── design/ engineering/ ...       # 4 个 placeholder
+├── integrations/                          # 13 份外部 / Cowork 集成档案
 │   ├── README.md
 │   ├── opencli.md / cli-anything.md
 │   ├── browser-use.md / agent-browser.md

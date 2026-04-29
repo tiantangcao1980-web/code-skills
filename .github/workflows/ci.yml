@@ -80,3 +80,35 @@ jobs:
         run: |
           chmod +x examples/run-all.sh examples/*/run.sh
           examples/run-all.sh
+
+      - name: Verify vendor/cowork integrity
+        run: |
+          # 1. vendor list works + JSON shape
+          bin/code-skills vendor list --json | python3 -c "
+          import json, sys
+          d = json.load(sys.stdin)
+          assert d['ok'] is True
+          plugins = d['data']['plugins']
+          assert len(plugins) == 19, f'expected 19 plugins, got {len(plugins)}'
+          vendored = [n for n,m in plugins.items() if m['status'] == 'vendored']
+          placeholder = [n for n,m in plugins.items() if m['status'] == 'placeholder']
+          assert len(vendored) == 15, f'expected 15 vendored, got {len(vendored)}'
+          assert len(placeholder) == 4, f'expected 4 placeholder, got {len(placeholder)}'
+          assert set(placeholder) == {'design','engineering','human-resources','operations'}
+          print(f'OK: 19 plugins ({len(vendored)} vendored, {len(placeholder)} placeholder)')
+          "
+          # 2. each plugin satisfies vendored/placeholder file invariants
+          python3 << 'PY'
+          import json
+          from pathlib import Path
+          lock = json.loads(Path('vendor/cowork/VERSIONS.lock').read_text())
+          for name, meta in lock['plugins'].items():
+              p = Path('vendor/cowork') / name / meta['version']
+              assert (p / '.claude-plugin' / 'plugin.json').exists(), f'{name}: missing plugin.json'
+              if meta['status'] == 'vendored':
+                  assert (p / 'LICENSE').exists(), f'{name}: vendored but missing LICENSE'
+              else:
+                  assert (p / 'README.md').exists(), f'{name}: placeholder must have README'
+                  assert not (p / 'skills').exists(), f'{name}: placeholder must not have skills/'
+          print('OK: vendor integrity check passed (LICENSE / placeholder rules)')
+          PY
