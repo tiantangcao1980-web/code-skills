@@ -62,6 +62,9 @@ case "$CMD" in
   cli-init|init)
     exec python3 "$ROOT/scripts/cli_init.py" "$@"
     ;;
+  vendor|v)
+    exec python3 "$ROOT/scripts/vendor.py" "$@"
+    ;;
   help|-h|--help|"")
     cat <<'EOF'
 code-skills CLI · 综合开发技能套件 (opencli-aligned)
@@ -87,6 +90,13 @@ COMMANDS:
   demo <subcmd>         Remotion passthrough(init/render/studio/preview)
   browser <subcmd>      browser-use passthrough(run/version/doctor)
   cli-init <name>       Scaffold 一个符合 opencli 规范的新 CLI 项目
+  vendor <subcmd>       管理 vendor/cowork/ (19 个领域插件 / 67+ skill)
+    list                  列出 plugin + skill 计数
+    status [<plugin>]     查看激活状态
+    install <plugin|--all-vendored> [--copy]  装到 ~/.claude/plugins/code-skills-vendor/
+    uninstall <plugin>    卸载
+    diff                  对比 vendor vs 上游 Cowork cache
+    sync [--dry-run]      从上游同步更新
   help                  显示本帮助
 
 COMMON FLAGS (every subcommand):
