@@ -166,8 +166,22 @@ INTERFACE_TPL = '''# {name} · Interface Specification
 '''
 
 
-def scaffold(name: str, force: bool, as_json: bool) -> int:
-    target = Path.cwd() / name
+def scaffold(name_or_path: str, force: bool, as_json: bool) -> int:
+    # Accept both bare names ("my-cli") and absolute/relative paths
+    # ("/tmp/my-cli", "../foo/my-cli"). The directory name is used as the
+    # project name in templates.
+    raw = Path(name_or_path).expanduser()
+    target = raw if raw.is_absolute() else (Path.cwd() / raw).resolve()
+    project_name = target.name
+    if not project_name:
+        emit_err(
+            ERR_USAGE,
+            f"could not derive project name from: {name_or_path}",
+            "pass a name like 'my-cli' or a path like '/tmp/my-cli'",
+            as_json,
+        )
+        return EXIT_USAGE
+
     if target.exists() and not force:
         emit_err(
             ERR_TARGET_EXISTS,
@@ -181,29 +195,30 @@ def scaffold(name: str, force: bool, as_json: bool) -> int:
     (target / "bin").mkdir(exist_ok=True)
     (target / "scripts").mkdir(exist_ok=True)
 
-    (target / "bin" / name).write_text(PYTHON_BIN.format(name=name))
-    (target / "scripts" / "_lib.py").write_text(PYTHON_LIB.format(name=name))
-    (target / "scripts" / "describe.py").write_text(PYTHON_DESCRIBE.format(name=name))
+    bin_file = target / "bin" / project_name
+    bin_file.write_text(PYTHON_BIN.format(name=project_name))
+    (target / "scripts" / "_lib.py").write_text(PYTHON_LIB.format(name=project_name))
+    (target / "scripts" / "describe.py").write_text(PYTHON_DESCRIBE.format(name=project_name))
     (target / "scripts" / "version.py").write_text(PYTHON_VERSION)
-    (target / "README.md").write_text(README_TPL.format(name=name))
-    (target / "INTERFACE.md").write_text(INTERFACE_TPL.format(name=name))
+    (target / "README.md").write_text(README_TPL.format(name=project_name))
+    (target / "INTERFACE.md").write_text(INTERFACE_TPL.format(name=project_name))
 
     # mark executables
     import os
     import stat
-    for p in [target / "bin" / name, target / "scripts" / "describe.py", target / "scripts" / "version.py"]:
+    for p in [bin_file, target / "scripts" / "describe.py", target / "scripts" / "version.py"]:
         st = os.stat(p)
         os.chmod(p, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
     if as_json:
-        emit_ok({"created": str(target), "files": 6}, as_json=True)
+        emit_ok({"created": str(target), "name": project_name, "files": 6}, as_json=True)
     else:
         print(f"[OK] scaffolded {target}")
         print()
         print("next:")
-        print(f"  cd {name}")
-        print(f"  ./bin/{name} help")
-        print(f"  ./bin/{name} describe --json")
+        print(f"  cd {target}")
+        print(f"  ./bin/{project_name} help")
+        print(f"  ./bin/{project_name} describe --json")
     return EXIT_OK
 
 

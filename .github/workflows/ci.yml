@@ -61,7 +61,9 @@ jobs:
 
       - name: Smoke test cli-init
         run: |
-          bin/code-skills cli-init /tmp/scaffold-test
+          rm -rf /tmp/scaffold-test
+          REPO="$GITHUB_WORKSPACE"
+          cd /tmp && "$REPO/bin/code-skills" cli-init scaffold-test
           /tmp/scaffold-test/bin/scaffold-test help
           /tmp/scaffold-test/bin/scaffold-test describe --json | python3 -c "
           import json, sys
