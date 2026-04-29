@@ -1,24 +1,46 @@
 # code-skills · 综合开发与设计技能套件
 
-> **10 个** Claude Code Skill(含 1 个**端到端自动驱动器** `auto-flow`) + 2 个嵌入式 Plugin + 一套对齐 opencli/CLI-Anything 的 CLI + 11 个外部项目集成档案。
-> 一句话目标:**用户提需求 → 自动跑到交付**,只在 6 个预设节点打扰用户。
+> **15 个** Claude Code Skill(含 1 个**端到端自动驱动器** `auto-flow` + 9 幕全流程覆盖)+ 2 个嵌入式 Plugin + 一套对齐 opencli/CLI-Anything 的 CLI + 13 份外部 / Cowork / Claude Code 集成档案。
+> 一句话目标:**用户提需求 → 自动跑完 9 幕到交付**,只在 6 个预设节点打扰用户。
 
 [![CI](https://github.com/<org>/code-skills/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
 
-## 10 个 Skill
+## 15 个 Skill(覆盖 9 幕全流程 + 工具)
 
-| # | Skill | 类型 | 一句话 |
-|---|-------|------|--------|
-| 0 | `auto-flow` | **驱动器** ⭐ | 用户提需求 → Phase 0 gate → 7 幕自动跑到交付,Ralph(≤20 轮) + Simplifier 配合 |
-| 1 | `ralph-loop` | 机制 | Stop-hook 强制循环,默认 ≤20 轮 + 早停 + 卡住保护 + 续轮申请书(含可装 plugin) |
-| 2 | `code-simplifier` | 质量 | P0/P1/P2 清单式精简,等价行为前提下删冗余(含可装 plugin) |
-| 3 | `design-dev-flow` | 编排 | 7 幕**蓝图**,声明应该有什么(`auto-flow` 是它的引擎) |
-| 4 | `cli-design` | 规范 | opencli + CLI-Anything 7 铁律 + 5 步法 |
-| 5 | `claude-code-resources` | 资源 | Claude Code 生态导航,3 个推荐封顶 |
-| 6 | `browser-automation` | 工具 | LLM 探索 → Playwright 固化的混合 E2E |
-| 7 | `programmatic-video` | 工具 | Remotion 写视频,30-60s demo 标准结构 |
-| 8 | `copywriting-design` | 设计 | 4 维度语气 + 5 句关键文案 + 禁用词清单 |
-| 9 | `design-templates` | 设计 | DESIGN.md / design-tokens.json 模板 |
+### 编排 / 机制层(4 个)
+| Skill | 类型 | 一句话 |
+|-------|------|--------|
+| `auto-flow` ⭐ | 驱动器 | 用户提需求 → Phase 0 gate → 9 幕自动跑到交付,Ralph(≤20 轮)+ Simplifier 配合 |
+| `design-dev-flow` | 蓝图 | 9 幕声明式流程(`auto-flow` 是它的引擎) |
+| `ralph-loop` 📦 | 循环引擎 | Stop-hook 强制循环,默认 ≤20 轮 + 早停 + 卡住保护 + 续轮申请书 |
+| `code-simplifier` 📦 | 质量 | P0/P1/P2 清单式精简,等价行为前提下删冗余 |
+
+### 上游(① 调研 → ② 分析 → ③ 产品)新增
+| Skill | 幕 | 一句话 |
+|-------|---|--------|
+| `user-research` ⭐新 | ① | 桌面 + 竞品 + 5 人深访 + 问卷,产出 research-report |
+| `requirement-analysis` ⭐新 | ② | JTBD + User Story + 用户旅程 + MoSCoW + RICE 双视图 |
+| `product-spec` ⭐新 | ③ | 11 章 PRD + MVP 切片 + NSM + 风险登记 + 上线/回滚 |
+
+### 中游(④ 设计 → ⑤ 接口)
+| Skill | 幕 | 一句话 |
+|-------|---|--------|
+| `design-templates` | ④ | DESIGN.md + design-tokens.json 模板 |
+| `copywriting-design` | ④ | 4 维度语气 + 5 句关键文案 + 禁用词清单 |
+| `cli-design` | ⑤ | opencli + CLI-Anything 7 铁律 + 5 步法 |
+
+### 下游(⑧ 测试 → ⑨ 交付)
+| Skill | 幕 | 一句话 |
+|-------|---|--------|
+| `qa-strategy` ⭐新 | ⑧ | 测试金字塔编排 + Quality Gate + 缺陷管理 |
+| `browser-automation` | ⑧ | LLM 探索 → Playwright 固化的混合 E2E |
+| `programmatic-video` | ⑨ | Remotion 写视频,30-60s demo 标准结构 |
+
+### 工具型(任一幕可调)
+| Skill | 类型 | 一句话 |
+|-------|------|--------|
+| `file-curation` ⭐新 | 工具 | 一堆文件 → 分类 → 摘要 → 索引 → 沉淀 4 步法 |
+| `claude-code-resources` | 资源 | Claude Code 生态导航,3 个推荐封顶 |
 
 ## 2 个嵌入式 Plugin(Anthropic 官方,Apache-2.0)
 
@@ -67,21 +89,22 @@ code-skills
 
 > **用户只提一句需求 → 系统自动跑到交付**。
 
-### 流程图
+### 流程图(9 幕)
 
 ```
-                ┌────────────────────────────────────┐
-                │ Phase 0 · 需求 Gate(必过)         │
-                │   11 项必填,任一缺失 → 回问用户    │
-                │   4 项可行性,任一冲突 → 报告改方向 │
-                │   ↓ 全齐 + 用户明确 OK             │
-                └────────────────────────────────────┘
-                                │
-   ① spec ─→ ② 设计 ─→ ③ 接口 ─→ ④ 前端 ─→ ⑤ 后端 ─→ ⑥ 验证 ─→ ⑦ 交付
-                                       ↑          ↑
-                                   Ralph(≤20)+ Simplifier(P0)
-                                       │          │
-                                       ⑦ 整体 P0+P1 全量精简
+   ┌────────────────────────────────────┐
+   │ Phase 0 · 需求 Gate(必过)         │
+   │   11 项必填,任一缺失 → 回问用户    │
+   │   4 项可行性,任一冲突 → 报告改方向 │
+   │   ↓ 全齐 + 用户明确 OK             │
+   └────────────────────────────────────┘
+                  │
+   ① 调研 → ② 分析 → ③ PRD → ④ 设计 → ⑤ 接口 → ⑥ 前端 → ⑦ 后端 → ⑧ 测试 → ⑨ 交付
+   user-     req-      product-   design-   cli-/       Ralph     Ralph    qa-       Cowork
+   research  analysis  spec       templates  api-       +simp     +simp    strategy  pptx/docx
+             +spec     +spec      +copy      design     (P0)      (P0)               +simp 全量
+             workflow  workflow   writing                                             +deploy
+                                                                                      +demo
 ```
 
 ### 用户被打扰的**仅 6 种**情形
@@ -93,7 +116,7 @@ code-skills
 | 3 | Ralph 连续 3 轮 VERIFY 不变 → 卡住报告 |
 | 4 | 涉及付费(域名 / CDN / API key) |
 | 5 | 涉及破坏性操作(删数据库 / 生产) |
-| 6 | ⑥ 验证报告含 ❌ |
+| 6 | ⑧ 测试 Quality Gate 含 ❌ |
 
 其余时间静默执行。详见 [`auto-flow/SKILL.md`](auto-flow/SKILL.md)。
 

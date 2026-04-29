@@ -13,26 +13,27 @@ description: |
 > 一句话:**用户提需求 → Phase 0 gate → 7 幕自动跑 → 交付**。
 > 中间默认不打扰用户,除非命中 6 个预设触发点。
 
-## 调度全图
+## 调度全图(9 幕版)
 
 ```
-                ┌────────────────────────────────────┐
-                │ Phase 0: 需求 Gate(必过)         │
-                │   11 项必填,任一缺失 → 回问用户    │
-                │   ↓ 全齐 + 用户确认 OK             │
-                └────────────────────────────────────┘
-                                │
-   ┌────────────────────────────┼─────────────────────────────┐
-   ▼                            ▼                              ▼
-┌─────────┐  ┌─────────┐  ┌──────────┐  ┌───────────────┐  ┌────────────────┐
-│① 需求   │→ │② 设计   │→ │③ 接口    │→ │④/⑤ 开发      │→ │⑥ 验证         │→ ⑦ 交付
-│  spec-  │  │ ui-     │  │  cli-    │  │ ralph-loop   │  │ browser-       │   simplifier
-│  workflow│ │ design+ │  │  design+ │  │  (≤20)+      │  │ automation+    │   全量+ deploy
-│         │  │ design- │  │  api-    │  │  simplifier  │  │ e2e-testing    │   + demo
-│         │  │ templates│ │  design  │  │  (P0 微清扫) │  │                │
-│         │  │ +copy   │  │          │  │              │  │                │
-└─────────┘  └─────────┘  └──────────┘  └──────────────┘  └────────────────┘
+        ┌────────────────────────────────────┐
+        │ Phase 0: 需求 Gate(必过,11 项)   │
+        └────────────────────────────────────┘
+                          │
+  ① 调研 ─→ ② 分析 ─→ ③ 产品 ─→ ④ 设计 ─→ ⑤ 接口 ─→ ⑥ 前端 ─→ ⑦ 后端 ─→ ⑧ 测试 ─→ ⑨ 交付
+  user-     req-       product-   design-   cli-/api-  Ralph     Ralph     qa-       Cowork
+  research  analysis   spec       templates  design    +simp     +simp     strategy  pptx/docx
+            +spec-     +spec-     +copy-                                              /pdf/xlsx
+            workflow   workflow   writing                                             +simp 全量
+                                  +ui-design                                          +deploy
+                                  +designdna                                          +demo
 ```
+
+**辅助/工具型 skill**(任一幕都能调):
+- `file-curation`:用户给一堆文件 → 整理成可检索索引
+- `claude-code-resources`:找现成的 Claude Code 资源
+- `programmatic-video`:做 demo 视频(主要在 ⑨ 幕)
+- `browser-automation`:浏览器自动验证(主要在 ⑧ 幕)
 
 ---
 
@@ -81,23 +82,25 @@ description: |
 
 ---
 
-## 7 幕(Gate 后中间不打扰)
+## 9 幕(Gate 后中间不打扰)
 
 | 幕 | 调用的 skill | 强制产出 | Ralph 介入? |
 |----|------------|---------|-------------|
-| **①** 需求文档化 | spec-workflow | `requirements.md` | 否 |
-| **②** 设计规范 | ui-design + designdna + **design-templates** + **copywriting-design** + taste-skill 自检 | `DESIGN.md` + `design-tokens.json` + `copy.json` | 否 |
-| **③** 接口契约 | **cli-design** / api-design | `INTERFACE.md`(命令树或 API schema) | 否 |
-| **④** 前端实现 | frontend-patterns + 平台 skill(web-development / miniprogram-development / ...) | 可运行前端 | ✅ |
-| **⑤** 后端实现 | backend-patterns + cloud-functions / cloudrun-development | 可运行后端 | ✅ |
-| **⑥** 浏览器/E2E 验证 | **browser-automation** + e2e-testing + verification-loop | 7 层验证报告 | 否 |
-| **⑦** 交付 | **code-simplifier** 全量 + deployment-patterns + **programmatic-video**(可选) | 简化代码 + README + 部署链接 + 30s demo | 否 |
+| **①** 调研 | **user-research** + (可选 file-curation 整理调研材料)| `docs/1-research-report.md` | 否 |
+| **②** 分析 | **requirement-analysis** + spec-workflow | `docs/2-requirements.md`(JTBD + Story + 旅程 + 优先级) | 否 |
+| **③** 产品(PRD) | **product-spec** + spec-workflow | `docs/3-PRD.md`(11 章) | 否 |
+| **④** 设计规范 | ui-design + designdna + design-templates + copywriting-design + taste-skill 自检 | `docs/4-DESIGN.md` + `design-tokens.json` + `copy.json` | 否 |
+| **⑤** 接口契约 | cli-design / api-design | `docs/5-INTERFACE.md` | 否 |
+| **⑥** 前端实现 | frontend-patterns + 平台 skill(web-development / miniprogram-development / 各 UI 库) | 可运行前端 | ✅ |
+| **⑦** 后端实现 | backend-patterns + cloud-functions / cloudrun-development | 可运行后端 | ✅ |
+| **⑧** 测试 | **qa-strategy** 编排 → tdd-workflow / e2e-testing / browser-automation / code-review / security-review / verification-loop | `docs/8-test-plan.md` + Quality Gate config + 7 层验证报告 | 否 |
+| **⑨** 交付 | **code-simplifier** 全量 + deployment-patterns + Cowork(`pptx`/`docx`/`pdf`)+ programmatic-video(可选) | 简化代码 + README + 部署链接 + 汇报材料 + 30s demo(可选) | 否 |
 
 每一幕**进下一幕前**必须有显式产出落盘 —— 没文件 = 没做完。
 
 ---
 
-## Ralph + Simplifier 协作模式(④⑤ 幕)
+## Ralph + Simplifier 协作模式(⑥⑦ 幕)
 
 ```
 Ralph 启动(契约 + max=20)
@@ -137,7 +140,7 @@ PLAN → EXEC → VERIFY → DECIDE
 | 3 | Ralph 连续 3 轮 VERIFY 不变 | 卡点报告 + 三选项(换思路/缩目标/接管) |
 | 4 | 涉及付费决策 | 域名/CDN/付费 API,**不替用户付钱**,告诉用户去哪付 |
 | 5 | 涉及破坏性操作 | 删数据库/删生产/`rm -rf` 等,必须用户确认 |
-| 6 | ⑥ 验证报告含 ❌ | 等用户决定:继续修 / 接受现状 / 改需求 |
+| 6 | ⑧ 验证报告含 ❌ | 等用户决定:继续修 / 接受现状 / 改需求 |
 
 **例外:账号/凭据始终让用户自己输入**,不替用户存(不在 6 触发点之列,但是恒定红线)。
 
@@ -162,7 +165,7 @@ PLAN → EXEC → VERIFY → DECIDE
 - ❌ 中间幕没产出就跳下一幕(你以为自己记住了,其实没有)
 - ❌ Ralph 跑满 20 轮还假装"差不多了"(必须申请,不许偷偷续)
 - ❌ Simplifier 在 Ralph 还没 DONE 时跑(把临时品当成冗余删掉)
-- ❌ 跳过 ⑥ 浏览器验证(类型检查 + 单测 ≠ 功能 OK)
+- ❌ 跳过 ⑧ 测试幕(类型检查 + 单测 ≠ 功能 OK)
 - ❌ 用户没同意就部署到生产
 - ❌ 触发 6 个干预点其中之一却不停(等于偷跑)
 

@@ -24,14 +24,16 @@
 - 资源可行: ✅ 用户提供 Logo,无外部依赖
 - 时间可行: ✅ 2 天可完成 v0.1(粗估:设计 0.5d / 开发 1d / 验证+交付 0.5d)
 
-预估 7 幕轨迹:
-  ① 需求文档化  ~0.5h
-  ② 设计规范    ~3h(走 design-templates + copywriting-design + taste 自检)
-  ③ 接口契约    ~0.5h(纯前端,接口契约较薄)
-  ④ 前端实现    ~12h(预计 Ralph 6-10 轮)
-  ⑤ 后端实现    跳过(无后端)
-  ⑥ 浏览器验证  ~2h(7 层都跑)
-  ⑦ 交付        ~2h(simplifier 全量 + README + Vercel 部署)
+预估 9 幕轨迹:
+  ① 调研         ~2h(竞品 + 桌面研究;访谈跳过——开发者自用工具)
+  ② 分析         ~1h(JTBD 1 条 + Story 4 条 + RICE 排序)
+  ③ PRD          ~1.5h(11 章 PRD;无后端,接口章节轻)
+  ④ 设计规范     ~3h(design-templates + copywriting-design + taste 自检)
+  ⑤ 接口契约     ~0.5h(纯前端,localStorage schema)
+  ⑥ 前端实现     ~12h(预计 Ralph 6-10 轮)
+  ⑦ 后端实现     跳过(无后端)
+  ⑧ 测试         ~2h(qa-strategy 编排 + 7 层验证)
+  ⑨ 交付         ~2h(simplifier 全量 + README + Vercel 部署 + 可选 demo)
 
 预估 Ralph 轮次: 6-10 轮,远低于 20 轮上限 ✅
 
