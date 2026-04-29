@@ -11,6 +11,14 @@ description: |
 
 > 把"做什么"沉淀到一份**所有角色都能对齐**的文档。设计师看视觉、工程师看流程、运营看指标、老板看预算。
 
+> 💡 **优先调用 Cowork 专家版**(若已激活):
+> - `pm/feature-spec` —— 标准化 PRD 模板(问题陈述 / 用户故事 / 验收 / 指标)
+> - `pm/roadmap-management` —— Now/Next/Later + 季度路线图
+> - `pm/metrics-tracking` —— OKR 设定、仪表盘、NSM 选取
+> - `pm/stakeholder-comms` —— 周报/月报/启动公告/风险沟通
+>
+> 本 skill 是**通用 fallback** —— Cowork 没装时使用;**额外贡献**:11 章 PRD 把"产品 + 工程 + 风险 + 上线 + FAQ"集成在一份,适合一人项目或小团队。
+
 ## 核心心法
 
 PRD 不是给自己看的笔记,是**5 个角色的对齐文档**:

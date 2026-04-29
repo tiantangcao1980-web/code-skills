@@ -11,6 +11,12 @@ description: |
 
 > 调研给的是**洞察**,产品给的是**功能**。本 skill 是中间那一步:**把洞察压成可决策的需求矩阵**。
 
+> 💡 **优先调用 Cowork 专家版**(若已激活):
+> - `pm/user-research-synthesis` —— 访谈/数据合成成主题 + 机会点
+> - `pm/roadmap-management` —— RICE / MoSCoW / ICE / Now-Next-Later 排序
+>
+> 本 skill 是**通用 fallback** —— Cowork 没装时用,且把 JTBD + Story + 用户旅程 + 双视图优先级**串成一份完整文档**。
+
 ## 输入 / 输出
 
 ```

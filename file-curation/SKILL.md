@@ -168,13 +168,43 @@ description: |
 
 ---
 
+## 领域文件 → Cowork 专家 skill 路由 ⭐
+
+整理完后,根据**文件主题**,把 ⭐⭐⭐ 必读文件路由到 Cowork 对应 plugin(假设已激活):
+
+| 文件主题 | 路由到 Cowork plugin/skill |
+|---------|---------------------------|
+| 合同 / NDA / 商务条款 | `legal/contract-review` + `legal/nda-triage` |
+| 法规 / GDPR / CCPA 合规 | `legal/compliance` |
+| 法律风险 / 案件评估 | `legal/legal-risk-assessment`(5×5 矩阵) |
+| 律师函 / 法律邮件模板 | `legal/canned-responses` |
+| 财务三表 / P&L / 资产负债 | `finance/financial-statements` |
+| 月底结账 / 月报 | `finance/close-management` |
+| 凭证 / 应付应收 / 折旧 | `finance/journal-entry-prep` |
+| 银行 / 账户调节 | `finance/reconciliation` |
+| 预算 vs 实际 / 偏差 | `finance/variance-analysis` |
+| SOX / 审计 / 内控 | `finance/audit-support` |
+| 数据集 / SQL / 统计 | `data/sql-queries` + `data/statistical-analysis` |
+| 用户访谈 / 调研 | `design/user-research` + `pm/user-research-synthesis` |
+| 竞品资料 | `pm/competitive-analysis` |
+| HR / 招聘 / 薪酬 | `human-resources/*` |
+| 销售 / 客户资料 | `sales/*` 或 `common-room/*` |
+
+完整 19 plugins / 81 skills 索引见 [`integrations/cowork-knowledge-work-plugins.md`](../integrations/cowork-knowledge-work-plugins.md)。
+
+**没装 Cowork 对应 plugin 时**:本 skill 仍能做基础整理,但**专业深度**(SOX 404 / GDPR 合规 / 合同 playbook 等)需要专家介入。
+
+---
+
 ## 与其他 skill 关系
 
 | skill | 关系 |
 |-------|------|
 | `anthropic-skills:pdf/docx/xlsx/pptx` | 调用其提取文本 |
+| Cowork legal/finance/data/...(见上表) | 整理后路由到对应专家 skill |
 | `hierarchical-memory` | 沉淀长期记忆 |
 | `iterative-retrieval` | 搜索整理后的索引 |
+| Cowork `enterprise-search/knowledge-synthesis` | 互补:本 skill 文件向,它搜索向 |
 | `user-research` | 调研材料整理后喂给它 |
 | `requirement-analysis` | 整理后的洞察转需求 |
 

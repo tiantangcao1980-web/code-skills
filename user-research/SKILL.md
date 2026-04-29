@@ -12,6 +12,12 @@ description: |
 
 > **设计的根在调研,不在脑补。** 没调研过的需求 = 在赌。
 
+> 💡 **优先调用 Cowork 专家版**(若已激活):
+> - `design/user-research` —— 设计角度的访谈规划、可用性测试
+> - `pm/user-research-synthesis` —— 把访谈/问卷/工单合成洞察 + 用户画像
+>
+> 本 skill 是**通用 fallback** —— Cowork 没装、或跨产品/设计两端的综合调研用本 skill。
+
 ## 4 种调研模式 · 按时间预算选
 
 | 模式 | 时间 | 输出 | 何时用 |

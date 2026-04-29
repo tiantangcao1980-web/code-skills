@@ -12,6 +12,13 @@ description: |
 > 灵感:[awesome-design-md](https://github.com/tiantangcao1980-web/awesome-design-md) —— 用 Markdown 把设计规范固化下来。
 > 核心心法:**设计规范不是 PDF,是版本化的 Markdown + tokens**,跟代码一起 review。
 
+> 💡 **协作 Cowork 专家**(若已激活):
+> - `design/design-system-management` —— 设计 token / 组件库 / 模式文档的**持续维护**
+> - `design/accessibility-review` —— 设计规范的 WCAG 2.1 AA 校验
+> - `design/design-handoff` —— 给开发的实现规格补充
+>
+> **分工**:本 skill 出**初始 DESIGN.md + design-tokens.json 模板**,Cowork 做**长期演进 + 多端同步 + 可访问性审计**。
+
 ## 必产出物清单
 
 每个项目至少产出 3 份文档:

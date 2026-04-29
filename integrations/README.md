@@ -17,7 +17,8 @@
 | [obra/superpowers](superpowers.md) | Skill 集合 | 引用(已是 skill 形式,不重做) |
 | [Leonxlnx/taste-skill](taste-skill.md) | 审美品味 skill | 引用(已是 skill 形式) |
 | [PerryTS/perry](perry.md) | TS 原生编译器(Rust) | 工具引用,不做成 skill |
-| [cowork-skills](cowork-skills.md) | Anthropic Cowork(Claude Desktop)17 个官方 skill | 运行时 `anthropic-skills:*` 自动加载,本表给 9 幕调度位置 |
+| [cowork-skills](cowork-skills.md) | Anthropic Cowork(Claude Desktop)17 个**通用** skill | 运行时 `anthropic-skills:*` 自动加载 |
+| [**cowork-knowledge-work-plugins**](cowork-knowledge-work-plugins.md) ⭐ | Cowork 19 个**领域专家**插件 / **81** 个 skill(legal/finance/engineering/design/pm/data/marketing/ops/HR/sales 等) | **重大集成**:用户问领域问题直接路由 |
 | [claude-code-skills-map](claude-code-skills-map.md) | `~/.claude/skills/` 97 个 Claude Code skill | 9 幕速查表,**避免重复造轮子** |
 
 ## 模板字段

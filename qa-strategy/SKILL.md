@@ -11,6 +11,12 @@ description: |
 
 > 测试不是"跑一遍",是**金字塔分层** + **覆盖率基线** + **缺陷闭环** 三件套。
 
+> 💡 **优先调用 Cowork 专家版**(若已激活):
+> - `engineering/testing-strategy` —— 测试策略与计划(更深入的层级 / 工具选型 / 覆盖率)
+> - `engineering/code-review`、`engineering/incident-response`、`engineering/tech-debt` —— 配套
+>
+> 本 skill 是**通用 fallback + 编排器** —— 把已装的 `tdd-workflow / e2e-testing / browser-automation / code-review / security-review / verification-loop` 串成一条 Quality Gate。
+
 ## 测试金字塔 · 经典 70/20/10
 
 ```

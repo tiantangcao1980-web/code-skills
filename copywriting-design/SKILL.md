@@ -12,6 +12,14 @@ description: |
 > 灵感:[alchaincyf/huashu-design](https://github.com/alchaincyf/huashu-design) —— 文案不是翻译需求,是**人格体现**。
 > 每个产品的文案要有**统一的"嘴型"**。
 
+> 💡 **协作 Cowork 专家**(若已激活):
+> - `design/ux-writing` —— UI 微文案(按钮 / 错态 / 空态)的更细化处理
+> - `brand-voice/brand-voice-enforcement` —— 现有内容的品牌语气一致性检查
+> - `brand-voice/discover-brand` + `guideline-generation` —— 从零定义品牌语气
+> - `marketing/brand-voice` —— 营销内容的品牌语气
+>
+> **分工**:本 skill 出"语气坐标 + 5 句关键文案"的**初始定调**,Cowork 做**全量微文案 + 品牌一致性检查**。
+
 ## 核心心法
 
 **文案 = 一个虚构作者写给一类真实读者的话**。先确定作者人格,再写每句话。
