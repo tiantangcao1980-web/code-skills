@@ -108,9 +108,53 @@ PLAN → EXECUTE → VERIFY → DECIDE
 
 ---
 
-## 单轮执行
+## 防漂移铁律(Input Injection)⭐
 
-每轮输出格式(给用户看的):
+> 灵感:OpenMythos / Recurrent-Depth Transformer 的 input injection 机制 —— 每轮把原始输入 `e` 重新注入 hidden state,**防止迭代过程中"忘了原本要做什么"**。
+> 详见 [`references/openmythos-inspirations.md`](references/openmythos-inspirations.md)。
+
+### 4 项硬约束
+
+每一轮都必须做,**做不到 = 这一轮不算数,自动重做**:
+
+1. **每轮 PLAN 阶段必须 quote 原始契约的"目标 + 退出条件"** —— 不能凭记忆写,必须从契约里读
+2. **每轮 VERIFY 阶段必须算"目标距离"** —— 当前产出离原始目标多远(具体差几个 case / 几条需求)
+3. **连续 2 轮目标距离扩大 → 自动 ABORT** —— 类比 spectral radius ρ(A) ≥ 1 发散,**不许硬撑**
+4. **DECIDE 之前最后一行必须写"是否仍在原始轨道"** —— ✅/🔄/⚠️/❌
+
+### 为什么必须
+
+迭代到第 5-10 轮时,模型会:
+- 修一个 case 顺手"优化"另一处(范围爬升)
+- 把临时品当成主线(目标偏移)
+- 改测试让它过(目标妥协)
+- 解决了次要问题但忘了主问题(轨道偏离)
+
+**Input Injection** 强约束每轮重新对齐原始 e,把这些都堵掉。
+
+### 单轮输出格式(升级版)
+
+每轮输出必须含 6 段(原 5 段 + 新增"目标距离"和"轨道检查"):
+
+```
+🔁 Iteration <N>/<MAX>
+ANCHOR: <quote 原始契约的目标 + 退出条件,不超过 50 字>
+PLAN: <这轮要做什么 + 为什么这是离 ANCHOR 最短路径>
+EXECUTE: <做了哪些事 / 改了哪些文件>
+VERIFY: <命令 + 结果摘要,失败用例最多 3 条>
+DISTANCE: <当前距离 ANCHOR 多远;格式:"X/Y 项达成,差: a,b,c">
+DECIDE: ✅ DONE | 🔁 CONTINUE | ⛔ ABORT
+ON_TRACK: ✅ 在轨 | 🔄 微偏(<10%) | ⚠️ 偏离 | ❌ 漂移(立即 ABORT)
+NEXT (if CONTINUE): <下一轮要做什么 + 为什么这么做>
+```
+
+**DECIDE 必须三选一,不能模糊**;**ON_TRACK 出 ❌ 必须 ABORT,不接受 CONTINUE**。
+
+---
+
+## 单轮执行(简版,无防漂移要求时)
+
+如果是非常短的循环(≤3 轮),可以省去 ANCHOR/DISTANCE/ON_TRACK,用简版:
 
 ```
 🔁 Iteration <N>
@@ -121,7 +165,7 @@ DECIDE: ✅ DONE | 🔁 CONTINUE | ⛔ ABORT
 NEXT (if CONTINUE): <下一轮要做什么 + 为什么这么做>
 ```
 
-**DECIDE 必须三选一,不能模糊。**
+**默认用上面的升级版**,简版仅用于"已知 ≤3 轮就完"的场景。
 
 ---
 
@@ -232,4 +276,5 @@ skill 单独使用 → 你**手动**遵循 Ralph 模式;plugin 装上 → 系统
 
 - [循环节奏与场景](references/loop-patterns.md)
 - [obra/superpowers 模式借鉴](references/obra-superpowers.md)
+- [OpenMythos 思想类比(Input Injection / 收敛性 / ACT)](references/openmythos-inspirations.md) ⭐
 - [内置 Plugin 原始 README](plugin/PLUGIN-README.md)
