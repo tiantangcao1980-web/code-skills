@@ -194,6 +194,7 @@ bin/code-skills browser run "find a repo and star it"
 bin/code-skills export codex      # → dist/codex/AGENTS.md + skills/
 bin/code-skills export cursor     # → dist/cursor/.cursor/rules/*.mdc
 bin/code-skills export opencode   # → dist/opencode/.opencode/skills/*
+bin/code-skills export hermes ~/.hermes/skills   # → 直接装到 Hermes(可选)
 bin/code-skills export generic    # → dist/generic/*.md(适配任意 markdown 工具)
 ```
 
@@ -206,7 +207,8 @@ bin/code-skills export generic    # → dist/generic/*.md(适配任意 markdown 
 | **OpenAI Codex CLI** | `AGENTS.md` + `skills/<name>.md` | 项目根 |
 | **Cursor IDE** | `.cursor/rules/<name>.mdc` | 项目根 |
 | **opencode-ai/opencode** | `.opencode/skills/<name>.md` + `skills.json` | 项目根 |
-| **openclaw** / **Hermes Agent** / **Trae** / **其他** | `<name>.md`(纯 markdown,通用 frontmatter) | 各工具按文档导入 |
+| **Hermes Agent**(NousResearch) | `skills/code-skills/<name>/SKILL.md`(双层) | `~/.hermes/skills/` |
+| **openclaw** / **Trae** / **其他** | `<name>.md`(纯 markdown,通用 frontmatter) | 各工具按文档导入 |
 
 详细使用见 `bin/code-skills export --help`。
 
